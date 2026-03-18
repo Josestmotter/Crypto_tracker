@@ -1,0 +1,118 @@
+body{
+    margin: 0;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0f1b2d, #1f2f46);;
+    color: rgb(255, 255, 255);
+    font-family: 'Inter', sans-serif;
+    font-size: 30px;
+}
+.caixa {
+    width: 300px;
+    height: 125px;
+    background: linear-gradient(135deg, #2b3748, #3a475a);
+    color: rgb(255, 255, 255);
+    padding: 20px;
+    border-radius: 10px;
+    
+    font-size: 30px;
+    padding: 20px;
+    
+    align-items: center;
+    
+    box-shadow: 0px 12px 30px rgba(0,0,0,0.45);
+    font-family: - 'inter', sans-serif;
+    position: relative;
+    transition: 1s;
+    padding-top: 40px;
+
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+.conteiner {
+    display: flex;
+    flex-direction: row;
+    gap: 35px;
+    padding-top: 30px;
+    justify-content: center;
+}
+.circle_button {
+    display: flex;
+    width: 20px;
+    height: 20px;
+    background: linear-gradient(135deg, #0f1b2d, #1f2f46);
+    border-radius: 50%;
+    justify-content: center;
+    color: #3f4b5c;
+    font-weight: bold;
+    font-size: 15px;
+    border: 0;
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+  
+}
+
+.caixa.expandida {
+    height: 600px;
+}
+.subtexto {
+    color: white;
+    display: flex;
+    padding-top: 5px;
+    font-size: 12px;
+    flex-direction: column;
+    
+}
+.preco{
+    color: rgb(255, 230, 0);
+    font-size: 45px;
+    padding-top: 10px;
+    margin-bottom: 20px
+}
+.conteudo-expandido{
+    display: none;
+    flex-direction: column;
+    padding-top: 20px;
+    
+}
+
+.caixa.expandida .conteudo-expandido{
+    display: block;
+}
+.linha-cinza{
+    align-items: center;
+    color: #1f2f46;
+    font-size: 40px;
+}
+.container_graficos{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
+}
+.caixa_graficos{
+    color: rgb(255, 255, 255);
+    padding: 20px;
+    border-radius: 10px;
+    
+    font-size: 30px;
+    padding: 20px;
+    
+    align-items: center;
+    justify-items: center;
+    box-shadow: 0px 12px 30px rgba(0,0,0,0.45);
+    font-family: - 'inter', sans-serif;
+    
+    margin-top: 40px;
+    
+
+}
+.descricao{
+    align-items: center;
+    justify-items: center;
+    text-align: center;
+    
+    font-size: 12px;
+    margin-bottom: 25px;
+}

@@ -1,0 +1,141 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Tracker</title>
+    <link rel="stylesheet" href="{% static 'home/home.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="conteiner">
+        <div class="caixa">
+            <b>Bitcoin Tracker</b>
+            <div class="subtexto">Current Bitcoin price in USD</div>
+            <div class="preco"><b>$<span id="btc">--</span></b></div>
+
+            <button class="circle_button" onclick="expandir(this)"></button>
+            <div class="conteudo-expandido linha-cinza">____________</div>
+            <div class="conteudo-expandido descricao">
+                Primeira criptomoeda descentralizada. Usada como reserva de valor digital e meio de transferência sem bancos.
+            </div>
+            <div><canvas id="grafico_btc" width="200" height="200"></canvas></div>
+        </div>
+
+        <div class="caixa">
+            <b>Solana Tracker</b>
+            <div class="subtexto">Current Solana price in USD</div>
+            <div class="preco"><b>$<span id="sol">--</span></b></div>
+
+            <button class="circle_button" onclick="expandir(this)"></button>
+            <div class="conteudo-expandido linha-cinza">____________</div>
+            <div class="conteudo-expandido descricao">
+                Blockchain rápida e barata, focada em alta performance para aplicações, DeFi, NFTs e jogos.
+            </div>
+            <div><canvas id="grafico_sol" width="200" height="200"></canvas></div>
+        </div>
+
+        <div class="caixa">
+            <b>Ethereum Tracker</b>
+            <div class="subtexto">Current Ethereum price in USD</div>
+            <div class="preco"><b>$<span id="eth">--</span></b></div>
+
+            <button class="circle_button" onclick="expandir(this)"></button>
+            <div class="conteudo-expandido linha-cinza">____________</div>
+            <div class="conteudo-expandido descricao">
+                Blockchain para contratos inteligentes e aplicativos descentralizados. Base de DeFi, NFTs e diversos projetos.
+            </div>
+            <div><canvas id="grafico_eth" width="200" height="200"></canvas></div>
+        </div>
+    </div>
+
+    <script>
+        function expandir(botao) {
+            const caixa = botao.closest(".caixa");
+            caixa.classList.toggle("expandida");
+        }
+    </script>
+
+    <script>
+        const graficoBTC = new Chart(document.getElementById("grafico_btc"), {
+            type: "line",
+            data: {
+                labels: [],
+                datasets: [{
+                    label: "Preço BTC",
+                    data: [],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true
+            }
+        });
+
+        const graficoSOL = new Chart(document.getElementById("grafico_sol"), {
+            type: "line",
+            data: {
+                labels: [],
+                datasets: [{
+                    label: "Preço SOL",
+                    data: [],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true
+            }
+        });
+
+        const graficoETH = new Chart(document.getElementById("grafico_eth"), {
+            type: "line",
+            data: {
+                labels: [],
+                datasets: [{
+                    label: "Preço ETH",
+                    data: [],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true
+            }
+        });
+
+        async function atualizarPreco(moeda, elementoId) {
+            const resposta = await fetch(`/preco/?moeda=${moeda}`);
+            const dados = await resposta.json();
+
+            console.log("preco", moeda, dados);
+
+            document.getElementById(elementoId).textContent = dados.preco;
+        }
+
+        async function atualizarGrafico(moeda, grafico) {
+            const resposta = await fetch(`/historico/?moeda=${moeda}`);
+            const dados = await resposta.json();
+
+            console.log("historico", moeda, dados);
+
+            grafico.data.labels = dados.labels;
+            grafico.data.datasets[0].data = dados.precos;
+            grafico.update();
+        }
+
+        async function atualizarTudo() {
+            await atualizarPreco("BTC", "btc");
+            await atualizarPreco("SOL", "sol");
+            await atualizarPreco("ETH", "eth");
+
+            await atualizarGrafico("BTC", graficoBTC);
+            await atualizarGrafico("SOL", graficoSOL);
+            await atualizarGrafico("ETH", graficoETH);
+        }
+
+        atualizarTudo();
+        setInterval(atualizarTudo, 5000);
+    </script>
+</body>
+</html>
