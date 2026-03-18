@@ -63,9 +63,9 @@ The application fetches cryptocurrency prices, processes the data in the Django 
 
 # The interface displays:
 
--the latest recorded price
+- the latest recorded price
 
--a short explanation of each cryptocurrency
+- a short explanation of each cryptocurrency
 
 - a line chart with recent price history
 
